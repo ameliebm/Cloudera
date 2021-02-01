@@ -1,0 +1,8 @@
+-- Connect
+beeline -u jdbc:hive2://localhost:10000
+
+-- Quit
+!q
+
+-- Connect giving user and password
+beeline -u jdbc:hive2://localhost:10000 -n username -n password
