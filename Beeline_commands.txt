@@ -6,3 +6,15 @@ beeline -u jdbc:hive2://localhost:10000
 
 -- Connect giving user and password
 beeline -u jdbc:hive2://localhost:10000 -n username -n password
+
+-- Using Beeline in Non_Interactive Mode
+
+-- Run Hive queries directly from the command line using the -e option
+$beeline -u jdbc:hive2://localhost:10000 -e 'SELECT * FROM fun.games'
+
+-- Use the -- silent= true option to suppress informational messages
+$beeline --silent=true -u jdbc:hive2://localhost:10000 -e 'SELECT * FROM fun.games'
+
+-- Using Single Quote and double Quote in WHERE clause.
+$ beeline --silent=true -u jdbc:hive2://localhost:10000 -e "SELECT * FROM fun.games WHERE name='Monopoly'"
+
