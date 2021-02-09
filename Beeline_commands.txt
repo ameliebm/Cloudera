@@ -7,7 +7,9 @@ beeline -u jdbc:hive2://localhost:10000
 -- Connect giving user and password
 beeline -u jdbc:hive2://localhost:10000 -n username -n password
 
--- Using Beeline in Non_Interactive Mode
+********************************************************
+*******  Using Beeline in Non_Interactive Mode  ********
+
 
 -- Run Hive queries directly from the command line using the -e option
 $beeline -u jdbc:hive2://localhost:10000 -e 'SELECT * FROM fun.games'
@@ -17,4 +19,46 @@ $beeline --silent=true -u jdbc:hive2://localhost:10000 -e 'SELECT * FROM fun.gam
 
 -- Using Single Quote and double Quote in WHERE clause.
 $ beeline --silent=true -u jdbc:hive2://localhost:10000 -e "SELECT * FROM fun.games WHERE name='Monopoly'"
+
+
+-- Change Output format using --outputformat=
+csv2 form comma delimited
+tsv2 for tab delimited
+$ beeline --silent=true -u jdbc:hive2://localhost:10000 --outputformat=csv2 -e 'SELECT * FROM fun.games'
+or
+$ beeline --silent=true -u jdbc:hive2://localhost:10000 --outputformat=tsv2 --showheader=false -e 'SELECT * FROM fun.games'
+
+
+-- Exclude header using --showheader=false
+$ beeline --silent=true -u jdbc:hive2://localhost:10000 --outputformat=csv2 --showheader=false -e 'SELECT * FROM fun.games'
+
+
+-- Execute a file containing HiveSQL code using  the -f option
+$vi myquery.sql
+SELECT * FROM fun.games
+
+$beeline --silent=true -u jdbc:hive2://localhost:10000 -f myquery.sql
+
+
+-- Using Variables
+$vi myquery.sql
+SET hivevar:game=Monopoly;
+SELECT list_price FROM fun.games WHERE name = '${hivevar:game}';
+
+$ beeline --silent=true -u jdbc:hive2://localhost:10000 -f myquery.sql
++-------------+--+
+| list_price  |
++-------------+--+
+| 19.99       |
++-------------+--+
+
+
+
+
+
+
+
+
+
+
 
